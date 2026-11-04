@@ -1,0 +1,189 @@
+/* style.css - Accessible Responsive Photo Gallery (Final Project) */
+
+/* ==========================================================================
+   1. Base Styles (Mobile View - Mobile-First Approach)
+   - No media queries for mobile view
+   - Single column CSS grid with a 10px gap
+   - Smooth scrolling enabled by default
+   ========================================================================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #f4f6f8;
+    color: #1f2937;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+header h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 12px auto;
+    text-align: center;
+}
+
+a {
+    color: #1d4ed8;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+a:hover,
+a:focus {
+    color: #0f172a;
+    outline: 2px solid #d97706;
+    outline-offset: 3px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px 0;
+}
+
+/* Single column grid with 10px gap between rows and columns */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    max-width: 1000px;
+    margin: 24px auto;
+}
+
+figure {
+    margin: 0;
+    padding: 12px;
+    border: 2px solid #222222;
+    background-color: #ffffff;
+    color: #1f2937;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+figcaption {
+    padding-top: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* ==========================================================================
+   2. Media Query #1: Tablet View (Triggers at 772px)
+   - Uses min-width: 772px
+   - Changes grid to 2 columns (grid display is inherited from mobile view)
+   - Border radius on figures creates circular shape
+   - Last figure spans both columns using :last-child
+   ========================================================================== */
+
+@media screen and (min-width: 772px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    figure {
+        border-radius: 50%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    figure img {
+        border-radius: 50%;
+        width: 70%;
+        height: 70%;
+        object-fit: cover;
+    }
+
+    figure:last-child {
+        grid-column: span 2;
+    }
+}
+
+/* ==========================================================================
+   3. Media Query #2: Large Screen View (Triggers at 992px)
+   - Uses min-width: 992px (NO max-width used)
+   - Every third figure takes up both columns using :nth-child(3n)
+   - Removes border-radius from all figures
+   ========================================================================== */
+
+@media screen and (min-width: 992px) {
+    figure {
+        border-radius: 0;
+        aspect-ratio: auto;
+        overflow: visible;
+        display: block;
+    }
+
+    figure img {
+        border-radius: 0;
+        width: 100%;
+        height: auto;
+    }
+
+    figure:nth-child(3n) {
+        grid-column: span 2;
+    }
+}
+
+/* ==========================================================================
+   4. Media Query #3: Prefers Reduced Motion
+   - Disables smooth scroll behavior when user prefers reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ==========================================================================
+   5. Media Query #4: Dark Color Scheme
+   - Dark background-color for figures
+   - Light (yellowish) font color for figures
+   - Black border for figures
+   - High contrast ratio (> 11:1) passing WCAG AAA / WAVE validation
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #e5e7eb;
+    }
+
+    a {
+        color: #ffe680;
+    }
+
+    figure {
+        background-color: #2b2b2b;
+        color: #ffe680;
+        border-color: #000000;
+    }
+
+    figcaption {
+        color: #ffe680;
+    }
+}
